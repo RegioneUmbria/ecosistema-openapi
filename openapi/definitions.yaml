@@ -1,0 +1,52 @@
+info:
+  commit: 
+  date: 
+  description: |-
+    OpenAPI 3 templates and definitions for WSO2 API Manager responses
+  version: master
+responses:
+  400BadRequest:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Bad Request
+  401Unauthorized:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Unauthorize
+  404NotFound:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Not Found
+  429TooManyRequests:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Too many requests
+  500InternalServerError:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Internal Server Error
+  503ServiceUnavailable:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Service Unavailable
+  default:
+    content:
+      application/problem+json:
+        schema:
+          $ref: '#/schemas/Problem'
+    description: Unexpected error
+schemas:
+  Problem:
+      $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/schemas/Problem'

@@ -1,0 +1,198 @@
+# Questo template in formato OpenAPI 3.0 rappresenta la personalizzazione dell'esempio del
+#   Team Digitale (https://github.com/teamdigitale/api-starter-kit-java/blob/master/openapi/simple.yaml.src)
+#
+# Seguendo attentamente questo template 
+#   potrai pubblicare l'API nell'Ecosistema digitale della Regione Umbria
+#   e in Developers Italia del Team Digitale.
+#
+x-commons:
+  ratelimit-headers: &ratelimit-headers
+    X-RateLimit-Limit:
+      $ref: '#/components/headers/X-RateLimit-Limit'
+    X-RateLimit-Remaining:
+      $ref: '#/components/headers/X-RateLimit-Remaining'
+    X-RateLimit-Reset:
+      $ref: '#/components/headers/X-RateLimit-Reset'
+  common-responses: &common-responses
+    '400':
+      $ref: '#/components/responses/400BadRequest'
+    '401':
+      $ref: '#/components/responses/401Unauthorized'
+    '429':
+      $ref: '#/components/responses/429TooManyRequests'
+    '500':
+      $ref: '#/components/responses/500InternalServerError'
+    '503':
+      $ref: '#/components/responses/503ServiceUnavailable'  
+    default:
+      $ref: '#/components/responses/default'
+
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  # Il `title` e' il nome dell'API. Non deve contere spazi.
+  # Dev'essere chiaro e conciso e deve identificare il servizio che viene esposto.
+  # Il nome dell'API verra' concordato con il comitato di gestione dell'Ecosistema
+  title: |-
+    ImpreseUmbre 
+  x-summary: >-
+    Questo servizio ritorna la lista delle imprese Umbre
+  description: |
+    #### Documentazione
+    Il servizio ritorna la lista delle imprese che hanno almeno una sede legale in Umbria
+
+    ##### Sottosezioni
+    E' possibile utilizzare - con criterio - delle sottosezioni.
+
+    #### Note
+
+    Inserire eventuali note
+
+    #### Informazioni tecniche ed esempi
+
+    Esempio:
+
+    ```
+    codice di esempio
+    ```
+
+  # I termini del servizio contengono un riferimento
+  #   a tutte le indicazioni e le note legali per l'utilizzo
+  #   del servizio, inclusi gli eventuali riferimenti utili al GDPR.
+  # Per tutte le API pubblicate sull'Ecosistema digitale regionale
+  #   lasciare 'https://apistore.regione.umbria.it/terms'
+  termsOfService: 'https://apistore.regione.umbria.it/terms'
+  # Per tutte le API erogate dalla Regione Umbria il contatto deve essere di Umbria Digitale.
+  # Negli altri casi il contatto verra' concordato con il comitato di gestione dell'Ecosistema
+  contact:
+    email: servicedesk@umbriadigitale.it
+    name: Umbria Digitale
+    url: https://www.umbriadigitale.it
+  # Team Digitale - L'audience delle API. Attualmente e' definito solamente
+  #   la tipologia `public`.
+  x-audience:
+    - public
+  # Team Digitale - Ogni API deve avere un UUID, invariante nel tempo e
+  #   rispetto al `title`.
+  x-api-id: 00000000-0000-0000-0000-000000000000
+# Una lista di `tag` utili a raggruppare le varie operazioni
+#   eseguite dalle API. Ogni `tag` puo' referenziare un link
+#   alla sua descrizione.
+tags:
+  - name: imprese
+    description: Servizi inerenti le imprese
+    externalDocs:
+      url: http://docs.my-api.com/imprese.htm
+# Lasciare solamente il/i gateway dove verra' pubblicata l'API
+# Se non si conosce questa informazioni contattare il comitato di gestione dell'Ecosistema
+servers:
+  - description: Gateway esterno (pubblico)
+    url: https://api.regione.umbria.it
+  - description: Gateway interno
+    url: https://api-int.regione.umbria.it:8243
+
+#
+# Qui vanno descritte tutte le risorse. 
+#
+paths:
+  /imprese:
+    get:
+      summary: Ritorna una lista di imprese
+      description: |
+        Ritorna la lista delle imprese con sede legale in Umbria. In questo esempio non e' stata implementata la paginazione
+      operationId: getImprese
+      tags:
+        - imprese
+      responses:
+        <<: *common-responses
+        '200':
+          description: |
+            Il server ha ritornato la lista.
+          # Il Rate Limit e' in fase di implementazione nell'Ecosistema Digitale, quindi l'headers seguente va lasciato commentato
+          #headers:
+          #  <<: *ratelimit-headers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Imprese'
+#
+# Questa risorsa deve essere sempre presente e serve per verificare lo stato del servizio di backend
+#
+  /status:
+    get:
+      summary: Ritorna lo stato del servizio di backend.
+      description: |
+        Ritorna lo stato del servizio di backend. A scopo
+        di test, su base randomica puo' ritornare
+        un errore.
+      operationId: getStatus
+      tags:
+        - status
+      responses:
+        <<: *common-responses
+        '200':
+          description: |
+            Il server ha ritornato lo status. In caso di problemi
+            ritorna sempre un problem+json.
+          # Il Rate Limit e' in fase di implementazione nell'Ecosistema Digitale, quindi l'headers seguente va lasciato commentato
+          #headers:
+          #  <<: *ratelimit-headers
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+components:
+#
+# Questo securitySchemes deve essere sempre inserito in quanto l'Ecosistema
+#   utilizza il sistema di autenticazione oauth2.
+# Il flow di autenticazione generalmente e' di tipo clientCredentials.
+#
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Per maggiori informazioni https://apistore.regione.umbria.it/store/forum
+      flows: 
+        clientCredentials: 
+          tokenUrl: 'https://api.regione.umbria.it:443/authorize'
+          scopes: {} 
+
+  headers:
+    X-RateLimit-Limit:
+      $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/headers/X-RateLimit-Limit'
+    X-RateLimit-Remaining:
+      $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/headers/X-RateLimit-Remaining'
+    X-RateLimit-Reset:
+      $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/headers/X-RateLimit-Reset'
+    Retry-After:
+      $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/headers/Retry-After'
+
+  responses:
+    # Predefined error codes for this API
+    400BadRequest:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/400BadRequest'
+    401Unauthorized:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/401Unauthorized'
+    404NotFound:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/404NotFound'
+    429TooManyRequests:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/429TooManyRequests'
+    500InternalServerError:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/500InternalServerError'
+    503ServiceUnavailable:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/503ServiceUnavailable'
+    default:
+      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/default'
+
+  schemas:
+    Problem:
+      $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/schemas/Problem'
+    Imprese:
+      type: object
+      description: Dati anagrafici dell'impresa
+      properties:
+        denominazione:
+          type: string
+          format: date-time
+          description: Denominazione dell'impresa
+          example: 'Umbria Digitale'

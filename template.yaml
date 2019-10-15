@@ -67,7 +67,7 @@ info:
   contact:
     email: servicedesk@umbriadigitale.it
     name: Umbria Digitale
-    url: https://www.umbriadigitale.it
+    url: https://apistore.regione.umbria.it/home
   # Team Digitale - L'audience delle API. Attualmente e' definito solamente
   #   la tipologia `public`.
   x-audience:
@@ -168,7 +168,8 @@ components:
       $ref: 'https://teamdigitale.github.io/openapi/0.0.5/definitions.yaml#/headers/Retry-After'
 
   responses:
-    # Predefined error codes for this API
+    # Risposte predefinite restituite dall'API Manager dell'Ecosistema (https://apistore.regione.umbria.it/apierrorcode/errors.html)
+    # Queste risposte devono essere sempre presenti
     400BadRequest:
       $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/400BadRequest'
     401Unauthorized:

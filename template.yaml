@@ -170,19 +170,19 @@ components:
   responses:
     # Predefined error codes for this API
     400BadRequest:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/400BadRequest'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/400BadRequest'
     401Unauthorized:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/401Unauthorized'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/401Unauthorized'
     404NotFound:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/404NotFound'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/404NotFound'
     429TooManyRequests:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/429TooManyRequests'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/429TooManyRequests'
     500InternalServerError:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/500InternalServerError'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/500InternalServerError'
     503ServiceUnavailable:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/503ServiceUnavailable'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/503ServiceUnavailable'
     default:
-      $ref: 'https://github.com/RegioneUmbria/ecosistema-docs/openapi/definitions.yaml#/responses/default'
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/default'
 
   schemas:
     Problem:

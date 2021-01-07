@@ -18,6 +18,10 @@ x-commons:
       $ref: '#/components/responses/400BadRequest'
     '401':
       $ref: '#/components/responses/401Unauthorized'
+    '403':
+      $ref: '#/components/responses/403Forbidden'
+    '404':
+      $ref: '#/components/responses/404NotFound'
     '429':
       $ref: '#/components/responses/429TooManyRequests'
     '500':
@@ -174,6 +178,8 @@ components:
       $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/400BadRequest'
     401Unauthorized:
       $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/401Unauthorized'
+    403Forbidden:
+      $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/403Forbidden'
     404NotFound:
       $ref: 'https://raw.githubusercontent.com/RegioneUmbria/ecosistema-openapi/0.0.1/definitions.yaml#/responses/404NotFound'
     429TooManyRequests:
